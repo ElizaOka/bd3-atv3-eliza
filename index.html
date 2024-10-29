@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BD3 - Firebase</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>WEB APP Libre - Firebase: Firestore</h1>
+    <div class="content">
+        <form id="add-aluno-form">
+            <input type="text" name="nome_aluno" placeholder="Nome do aluno">
+            <input type="text" name="cpf" placeholder="CPF">
+            <input type="text" name="rg" placeholder="RG">
+            <input type="text" name="tel_aluno" placeholder="Telefone do aluno">
+            <input type="text" name="tel_responsavel" placeholder="Telefone do responsável">
+            <input type="text" name="email" placeholder="E-mail">
+            <input type="text" name="data_nascimento" placeholder="Data de nascimento">
+            <button>CADASTRAR</button>
+        </form>
+        <ul id="aluno-list"></ul>
+    </div>
+    
+    <!-- SDK do Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase-app.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase-firestore.js"></script> 
+
+    <!-- Conexão com o Firebase -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAHGWfAOuyefvMp8nJlC0IETLhA2xsf8EA",
+            authDomain: "bd3-app-libri-eliza.firebaseapp.com",
+            projectId: "bd3-app-libri-eliza",
+            storageBucket: "bd3-app-libri-eliza.appspot.com",
+            messagingSenderId: "905933214106",
+            appId: "1:905933214106:web:e4c73c37bd3e16d18dea23",
+            measurementId: "G-H35G6L942L"
+        };
+
+        // Inicializa o Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Inicializa o Firestore
+        const db = firebase.firestore();
+        const settings = { timestampsInSnapshots: true };
+        db.settings(settings);
+
+        // Exemplo de leitura do campo 'created_at' no Firestore
+        db.collection('BD3-NoSQL-Firestore').doc('bd3-app-libri-eliza').get()
+            .then((snapshot) => {
+                const timestamp = snapshot.get('data_nascimento');
+                if (timestamp) {
+                    const date = timestamp.toDate();
+                    console.log("Data convertida:", date);
+                } else {
+                    console.log("Campo não encontrado no documento.");
+                }
+            })
+            .catch((error) => {
+                console.error("Erro ao recuperar data:", error);
+            });
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>
