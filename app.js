@@ -11,7 +11,7 @@ function renderList(doc) {
     let email = document.createElement('span');
     let data_nascimento = document.createElement('span');
     let exclusao = document.createElement('button');
-
+    
     aluno.setAttribute('data-id', doc.id);
 
     nome_aluno.textContent = doc.data().nome_aluno || 'Nome não disponível';
@@ -57,6 +57,8 @@ btnExcluirAluno.addEventListener('click', () => {
                             console.log("Aluno excluído com sucesso:", nomeParaExcluir);
                             // Remove o item da lista (opcional)
                             const alunoLi = document.querySelector(`[data-id="${doc.id}"]`);
+                            mensagemStatus.style.display = 'block';
+                            mensagemStatus.textContent = `Aluno ${nomeParaExcluir} excluído com sucesso!`;
                             if (alunoLi) alunoLi.remove();
                         })
                         .catch((error) => {
